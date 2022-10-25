@@ -1,0 +1,14 @@
+# делал по инструкции: https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04-ru
+[Unit]
+Description=Gunicorn instance to serve PAD-EventlService
+After=network.target
+
+[Service]
+User=vuacheslavmironov
+Group=www-data
+WorkingDirectory=/var/www/PAD-EventlService
+Environment="PATH=/var/www/PAD-EventlService/env/bin"
+ExecStart=/var/www/PAD-EventlService/env/bin/gunicorn --workers 3 --bind unix:PAD-EventlService.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
